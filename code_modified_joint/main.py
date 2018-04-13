@@ -14,11 +14,12 @@ from data import Dataset
 # from average_precision import average_precision
 
 
-def main(margin_input, output_shape, num_layers, folder_model):
+def main(margin_input, output_shape, num_layers, mtl, folder_model):
 
     config = Config(margin_input=margin_input,
                     output_shape=output_shape,
                     num_layers=num_layers,
+                    mtl=mtl,
                     folder_model=folder_model)
 
     # initialize the logger
@@ -116,17 +117,19 @@ def main(margin_input, output_shape, num_layers, folder_model):
 if __name__ == "__main__":
     # margin = float(sys.argv[1])
     # output_shape = int(sys.argv[2])
-    # num_layers = int(sys.argv[3])
+    # mtl = sys.argv[3]
     # folder_model = sys.argv[4]
 
     margin = 0.3
     # output_shape list, [phn dimension, professionality dimension]
     # or integer 27 or 2
-    output_shape = 27
-    num_layers = 2
+    output_shape = [27, 2]
+    mtl = "pro"
     folder_model = 'model_cpu'
+    num_layers = 2 if mtl == "pro" else 1
 
     main(margin_input=margin,
          output_shape=output_shape,
          num_layers=num_layers,
+         mtl=mtl,
          folder_model=folder_model)
