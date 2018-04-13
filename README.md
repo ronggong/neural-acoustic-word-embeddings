@@ -1,14 +1,15 @@
-Neural Acoustic Word Embeddings for Switchboard
+Neural Acoustic Phonetic Embeddings for Jingju singing voice
 ===============================================
+
+TODO:
+---------
+- [ ] Siamese model phonetic pronunciation embedding
+- [ ] Siamese model phonetic professionality embedding
+- [ ] Siamese model multitask learning pronunciation/professionality embeddings
 
 Overview:
 ---------
-
-This is a recipe for learning neural acoustic word embeddings for a subset of Switchboard. The models are explained in greater detail in [Settle & Livescu, 2016](https://arxiv.org/abs/1611.02550) as well as [Settle et al., 2017](https://arxiv.org/abs/1706.03818):
-
-- S. Settle and K. Livescu, "Discriminative Acoustic Word Embeddings: Recurrent Neural Network-Based Approaches," in Proc. SLT, 2016.
-- S. Settle, K. Levin, H. Kamper, and K. Livescu, "Query-by-Example Search with Discriminative Neural Acoustic Word Embeddings," in Proc. Interspeech, 2017.
-
+Todo
 
 Contents:
 ---------
