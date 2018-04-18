@@ -14,8 +14,8 @@ class Config(object):
         self.num_layers = num_layers
         self.mtl = mtl # ["phn", "pro", "both"]
 
-    # path_dataset = '/homedtic/rgong/phoneEmbeddingModelsTraining/dataset/'
-    path_dataset = '/media/gong/ec990efa-9ee0-4693-984b-29372dcea0d1/Data/RongGong/phoneEmbedding'
+    path_dataset = '/homedtic/rgong/phoneEmbeddingModelsTraining/dataset/'
+    # path_dataset = '/media/gong/ec990efa-9ee0-4693-984b-29372dcea0d1/Data/RongGong/phoneEmbedding'
 
     filename_feature_teacher = path.join(path_dataset, 'feature_phn_embedding_train_teacher.pkl')
     filename_list_key_teacher = path.join(path_dataset, 'list_key_teacher.pkl')

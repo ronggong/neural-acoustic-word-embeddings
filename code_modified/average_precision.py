@@ -87,6 +87,7 @@ class Ap_score(object):
         return ap
 
     def eval_pronunciation(self, embeddings, labels, index_student):
+        """pronunciation evaluation, only consider teacher to student"""
         dist_mat = (2.0 - squareform(pdist(embeddings, 'cosine'))) / 2.0
         gt_mat = self.ground_truth_matrix(labels)
 
@@ -98,3 +99,48 @@ class Ap_score(object):
 
         return ap
 
+    def eval_professionality(self, embeddings, labels, le):
+        list_dist = []
+        list_gt = []
+        array_ap_phn = np.zeros((27,))
+        cols = []
+        list_ratio_tea_stu = []
+        for ii_class in range(27):
+            # teacher student pair class index
+            idx_ii_class = np.where(np.logical_or(labels == 2 * ii_class,
+                                                  labels == 2 * ii_class + 1))[0]
+
+            idx_ii_class_stu = len(np.where(labels == 2 * ii_class)[0])
+            idx_ii_class_tea = len(np.where(labels == 2 * ii_class + 1)[0])
+
+            # ratio of teacher's samples
+            list_ratio_tea_stu.append(idx_ii_class_tea / float(idx_ii_class_tea + idx_ii_class_stu))
+
+            dist_mat = (2.0 - squareform(pdist(embeddings[idx_ii_class], 'cosine'))) / 2.0
+            labels_ii_class = [labels[idx] for idx in idx_ii_class]
+            gt_mat = self.ground_truth_matrix(labels_ii_class)
+
+            sample_num = dist_mat.shape[0]
+            iu1 = np.triu_indices(sample_num, 1)  # trim the upper mat
+
+            list_dist.append(dist_mat[iu1])
+            list_gt.append(gt_mat[iu1])
+
+            # calculate the average precision of each phoneme
+            ap_phn = average_precision_score(y_true=np.abs(list_gt[ii_class]),
+                                             y_score=np.abs(list_dist[ii_class]),
+                                             average='weighted')
+
+            cols.append(le.inverse_transform(2 * ii_class).split('_')[0])
+            array_ap_phn[ii_class] = ap_phn
+
+            print(list_ratio_tea_stu)
+
+        array_dist = np.concatenate(list_dist)
+        array_gt = np.concatenate(list_gt)
+
+        ap = average_precision_score(y_true=np.abs(array_gt),
+                                     y_score=np.abs(array_dist),
+                                     average='weighted')
+
+        return ap, array_ap_phn, list_ratio_tea_stu, cols

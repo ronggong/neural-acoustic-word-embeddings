@@ -86,7 +86,7 @@ class Data_preprocessing(object):
         self.load_data_embedding_teacher_student(filename_feature_teacher=config.filename_feature_teacher_test,
                                                  filename_feature_student=config.filename_feature_student_test,
                                                  filename_list_key_teacher=config.filename_list_key_teacher,
-                                                 filename_list_key_student=config.filename_list_key_student,
+                                                 filename_list_key_student=config.filename_list_key_student_test,
                                                  filename_scaler=config.filename_scaler)
 
     def organize_label(self, config):

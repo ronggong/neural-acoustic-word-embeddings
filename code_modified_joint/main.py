@@ -115,18 +115,18 @@ def main(margin_input, output_shape, num_layers, mtl, folder_model):
             # print("ap: %.4f" % average_precision(embeddings, labels))
 
 if __name__ == "__main__":
-    # margin = float(sys.argv[1])
+    margin = float(sys.argv[1])
     # output_shape = int(sys.argv[2])
-    # mtl = sys.argv[3]
-    # folder_model = sys.argv[4]
+    mtl = sys.argv[2]
+    folder_model = sys.argv[3]
 
-    margin = 0.3
+    # margin = 0.3
     # output_shape list, [phn dimension, professionality dimension]
     # or integer 27 or 2
     output_shape = [27, 2]
-    mtl = "pro"
-    folder_model = 'model_cpu'
-    num_layers = 2 if mtl == "pro" else 1
+    # mtl = "pro"
+    # folder_model = 'model_cpu'
+    num_layers = 1 if mtl == "pro" else 2
 
     main(margin_input=margin,
          output_shape=output_shape,
