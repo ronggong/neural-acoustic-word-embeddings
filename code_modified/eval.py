@@ -106,39 +106,39 @@ if __name__ == "__main__":
     # margin = float(sys.argv[1])
     # folder_model = sys.argv[2]
 
-    # val_test = 'val'
-    # output_shape = 2
-    # for margin_str in ['015', '0', '03', '045', '06']:
-    #     if margin_str == '0':
-    #         margin = 0.0
-    #     elif margin_str == '015':
-    #         margin = 0.15
-    #     elif margin_str == '03':
-    #         margin = 0.3
-    #     elif margin_str == '045':
-    #         margin = 0.45
-    #     elif margin_str == '06':
-    #         margin = 0.6
-    #     else:
-    #         raise ValueError('{} doesn''t exist.'.format(margin_str))
-    #
-    #     folder_model = 'model_gpu_'+str(output_shape)+'_'+margin_str+'_'
-    #
-    #     num_layers = 2 if output_shape == 27 else 1
-    #
-    #     main(margin_input=margin,
-    #          folder_model=folder_model,
-    #          num_layers=num_layers,
-    #          output_shape=output_shape,
-    #          val_test=val_test)
-
-    val_test = 'test'
+    val_test = 'val'
     output_shape = 2
-    margin_str = '015'
-    num_layers = 1
-    folder_model = 'model_gpu_' + str(output_shape) + '_' + margin_str + '_'
-    main(margin_input=0.15,
-         folder_model=folder_model,
-         num_layers=num_layers,
-         output_shape=output_shape,
-         val_test=val_test)
+    for margin_str in ['015', '0', '03', '045', '06']:
+        if margin_str == '0':
+            margin = 0.0
+        elif margin_str == '015':
+            margin = 0.15
+        elif margin_str == '03':
+            margin = 0.3
+        elif margin_str == '045':
+            margin = 0.45
+        elif margin_str == '06':
+            margin = 0.6
+        else:
+            raise ValueError('{} doesn''t exist.'.format(margin_str))
+
+        folder_model = 'model_gpu_'+str(output_shape)+'_'+margin_str+'_'
+
+        num_layers = 2 if output_shape == 27 else 1
+
+        main(margin_input=margin,
+             folder_model=folder_model,
+             num_layers=num_layers,
+             output_shape=output_shape,
+             val_test=val_test)
+
+    # val_test = 'test'
+    # output_shape = 2
+    # margin_str = '015'
+    # num_layers = 2 if output_shape == 27 else 1
+    # folder_model = 'model_gpu_' + str(output_shape) + '_' + margin_str + '_'
+    # main(margin_input=0.15,
+    #      folder_model=folder_model,
+    #      num_layers=num_layers,
+    #      output_shape=output_shape,
+    #      val_test=val_test)

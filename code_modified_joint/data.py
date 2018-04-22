@@ -100,7 +100,7 @@ class Data_preprocessing(object):
             indices_student = [i for i, s in enumerate(labels) if 'student' in s]
             self.label_integer[indices_teacher] = 0
             self.label_integer[indices_student] = 1
-        elif config.output_shape == 27:
+        elif config.output_shape == 27 or config.mtl == 'phn':
             phn_set = list(set([l.split('_')[0] for l in labels]))
             for ii in range(len(phn_set)):
                 indices_phn = [i for i, s in enumerate(labels) if phn_set[ii] == s.split('_')[0]]
@@ -200,7 +200,8 @@ class Dataset(object):
     def batch(self, batch_size, max_same=1, max_diff=1, output_shape=2):
         """Batch data."""
 
-        self.shuffle()
+        if not self.is_test:
+            self.shuffle()
 
         # phn same, pro same
         same = []

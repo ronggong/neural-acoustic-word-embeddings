@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH -J nawem27015
+#SBATCH -J nawem527015
 #SBATCH -p high
 #SBATCH -N 1
 #SBATCH --workdir=/homedtic/rgong/neural-acoustic-word-embeddings/code_modified_joint
@@ -11,8 +11,8 @@
 
 # Output/Error Text
 # ----------------
-#SBATCH -o /homedtic/rgong/neural-acoustic-word-embeddings/out/nawem27015.%N.%J.%u.out # STDOUT
-#SBATCH -e /homedtic/rgong/neural-acoustic-word-embeddings/out/nawem27015.%N.%J.%u.err # STDERR
+#SBATCH -o /homedtic/rgong/neural-acoustic-word-embeddings/out/nawem527015.%N.%J.%u.out # STDOUT
+#SBATCH -e /homedtic/rgong/neural-acoustic-word-embeddings/out/nawem527015.%N.%J.%u.err # STDERR
 
 
 # anaconda environment
@@ -21,5 +21,5 @@ source activate /homedtic/rgong/tensorflow-py36
 
 for i in `seq 1 5`;
 do
-    python /homedtic/rgong/neural-acoustic-word-embeddings/code_modified_joint/main.py 0.15 both model_gpu_mtl_both_015_$i
+    python /homedtic/rgong/neural-acoustic-word-embeddings/code_modified_joint/main.py 0.15 both model_gpu_mtl_both_5_015_$i
 done

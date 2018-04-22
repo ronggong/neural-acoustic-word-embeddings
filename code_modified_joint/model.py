@@ -74,8 +74,7 @@ class Model(object):
             if isinstance(config.output_shape, list):
                 if config.mtl == "phn" or config.mtl == "both":
                     embeddings_diff_phn_0, embeddings_diff_phn_1, embeddings_diff_phn_2, embeddings_diff_phn_3 = \
-                        self.logit_split_phn(self.embeddings[0], tf.reduce_max(self.diff_partition) + 1,
-                                             config.max_diff)
+                        self.logit_split_phn(self.embeddings[0], config.batch_size, config.max_diff)
                     loss_phn_0 = triplet_loss(embeddings_diff_phn_0,
                                               self.same_partition, self.diff_partition, margin=config.margin)
                     loss_phn_1 = triplet_loss(embeddings_diff_phn_1,
@@ -87,8 +86,7 @@ class Model(object):
 
                 if config.mtl == "pro" or config.mtl == "both":
                     embeddings_diff_pro_0, embeddings_diff_pro_1, embeddings_diff_pro_2, embeddings_diff_pro_3 = \
-                        self.logit_split_pro(self.embeddings[1], tf.reduce_max(self.diff_partition) + 1,
-                                             config.max_diff)
+                        self.logit_split_pro(self.embeddings[1], config.batch_size, config.max_diff)
                     loss_pro_0 = triplet_loss(embeddings_diff_pro_0,
                                               self.same_partition, self.diff_partition, margin=config.margin)
                     loss_pro_1 = triplet_loss(embeddings_diff_pro_1,
@@ -128,8 +126,8 @@ class Model(object):
                                                                                batch_size * max_diff, -1])
         embeddings_diff_phn_0 = tf.concat([anchor, same, diff_phn], 0)
         embeddings_diff_phn_1 = tf.concat([anchor, same, diff_phn_pro], 0)
-        embeddings_diff_phn_2 = tf.concat([anchor, diff_pro, diff_phn], 0)
-        embeddings_diff_phn_3 = tf.concat([anchor, diff_pro, diff_phn_pro], 0)
+        embeddings_diff_phn_2 = tf.concat([anchor, diff_pro[0:batch_size, :], diff_phn], 0)
+        embeddings_diff_phn_3 = tf.concat([anchor, diff_pro[0:batch_size, :], diff_phn_pro], 0)
         return embeddings_diff_phn_0, embeddings_diff_phn_1, embeddings_diff_phn_2, embeddings_diff_phn_3
 
     @staticmethod
@@ -141,8 +139,8 @@ class Model(object):
                                                                                batch_size * max_diff, -1])
         embeddings_diff_pro_0 = tf.concat([anchor, same, diff_pro], 0)
         embeddings_diff_pro_1 = tf.concat([anchor, same, diff_phn_pro], 0)
-        embeddings_diff_pro_2 = tf.concat([anchor, diff_phn, diff_pro], 0)
-        embeddings_diff_pro_3 = tf.concat([anchor, diff_phn, diff_phn_pro], 0)
+        embeddings_diff_pro_2 = tf.concat([anchor, diff_phn[0:batch_size, :], diff_pro], 0)
+        embeddings_diff_pro_3 = tf.concat([anchor, diff_phn[0:batch_size, :], diff_phn_pro], 0)
         return embeddings_diff_pro_0, embeddings_diff_pro_1, embeddings_diff_pro_2, embeddings_diff_pro_3
 
     def get_loss_train(self, sess, x, ts, same_partition, diff_partition):

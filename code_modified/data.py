@@ -190,7 +190,8 @@ class Dataset(object):
     def batch(self, batch_size, max_same=1, max_diff=1, output_shape=2):
         """Batch data."""
 
-        self.shuffle()
+        if not self.is_test:
+            self.shuffle()
 
         same = []
         for index, label in enumerate(self.ids):  # collect same samples

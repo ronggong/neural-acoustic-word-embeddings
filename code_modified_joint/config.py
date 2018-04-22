@@ -14,8 +14,8 @@ class Config(object):
         self.num_layers = num_layers
         self.mtl = mtl # ["phn", "pro", "both"]
 
-    path_dataset = '/homedtic/rgong/phoneEmbeddingModelsTraining/dataset/'
-    # path_dataset = '/media/gong/ec990efa-9ee0-4693-984b-29372dcea0d1/Data/RongGong/phoneEmbedding'
+    # path_dataset = '/homedtic/rgong/phoneEmbeddingModelsTraining/dataset/'
+    path_dataset = '/media/gong/ec990efa-9ee0-4693-984b-29372dcea0d1/Data/RongGong/phoneEmbedding'
 
     filename_feature_teacher = path.join(path_dataset, 'feature_phn_embedding_train_teacher.pkl')
     filename_list_key_teacher = path.join(path_dataset, 'list_key_teacher.pkl')
@@ -35,7 +35,7 @@ class Config(object):
     filename_feature_student_test = path.join(path_dataset, 'feature_phn_embedding_test_extra_student.pkl')
     filename_list_key_student_test = path.join(path_dataset, 'list_key_extra_student.pkl')
 
-    batch_size = 128
+    batch_size = 64
     current_epoch = 0
     num_epochs = 500
     feature_dim = 80
@@ -43,7 +43,7 @@ class Config(object):
     bidirectional = True
     keep_prob = 1.0
     max_same = 1
-    max_diff = 1
+    max_diff = 5
     lr = 0.001
     mom = 0.9
     log_interval = 10
